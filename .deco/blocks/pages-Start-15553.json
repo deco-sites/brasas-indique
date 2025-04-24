@@ -3,12 +3,72 @@
   "path": "/",
   "sections": [
     {
-      "__resolveType": "site/sections/ItWorks.tsx",
-      "name": "<p>It Works!</p>",
-      "count": 1
+      "__resolveType": "site/sections/ReferAndEarnPageBanner.tsx",
+      "alt": "Indique e ganhe",
+      "width": 1440,
+      "height": 573,
+      "background": {
+        "image": "https://assets.decocache.com/brasas-indique/b3345bf1-e3dd-4023-a6e4-e9c9d2100707/Header_Indique-e-ganhe_fundo.png",
+        "width": 1440,
+        "height": 573,
+        "alt": "Background"
+      },
+      "centeredImage": {
+        "image": "https://assets.decocache.com/brasas-indique/9a4e4620-62c6-4d07-a68b-fe615990c110/Header_Indique-e-ganhe_sem-fundo.png",
+        "alt": "indique e ganhe",
+        "width": 1654,
+        "height": 1190
+      }
     },
     {
-      "__resolveType": "Footer"
+      "__resolveType": "site/sections/WhoIndicates.tsx",
+      "titleInEnglish": "Whoever recommends you is a friend!",
+      "titleInPortuguese": "Quem indica, amigo é!",
+      "textInEnglish": "<p>A true friend shares a good tip, especially when it's worth a discount!</p><p>&nbsp;</p><p>Recommend Brasas to a friend and get R$100.00 off if they sign up.</p><p>&nbsp;</p><p><strong>The more you refer, the bigger the discount you get!</strong></p>",
+      "textInPortuguese": "<p>Amigo de verdade compartilha dica boa, ainda mais quando vale desconto!</p><p>&nbsp;</p><p>Indique o Brasas a um amigo e ganhe R$100,00 de desconto se ele se matricular.</p><p>&nbsp;</p><p><strong>Quanto mais você indicar, mais desconto ganha!</strong></p>",
+      "boxTitleInEnglish": "Share your code with your friends right now:",
+      "boxTitleInPortuguese": "Compartilhe seu código com seus amigos agora mesmo:",
+      "socialMediaIcons": [
+        {
+          "icon": "whatsapp",
+          "link": "#"
+        },
+        {
+          "icon": "email",
+          "link": "#"
+        },
+        {
+          "icon": "facebook",
+          "link": "#"
+        }
+      ],
+      "bgImage": "https://assets.decocache.com/brasas-indique/ba4313f2-f4e8-48cb-b203-5bd25e969f28/ilustra.png"
+    },
+    {
+      "__resolveType": "site/sections/HaveQuestions.tsx",
+      "titleInEnglish": "<p>Do you have any questions?</p><p>See how easy it is.</p>",
+      "titleInPortuguese": "<p>Está com dúvidas?</p><p>Veja como é fácil.</p>",
+      "cards": [
+        {
+          "titleInEnglish": "Share your code",
+          "icon": "send",
+          "titleInPortuguese": "Compartilhe seu código",
+          "textInEnglish": "Each student has a unique code. Now that you know where yours is, just share it with your friends!",
+          "textInPortuguese": "Cada aluno possui um código único. Agora que você já sabe onde fica o seu, basta compartilhá-lo com seus amigos!"
+        },
+        {
+          "icon": "heart",
+          "titleInEnglish": "Get the discount",
+          "titleInPortuguese": "Ganhe o desconto",
+          "textInEnglish": "To ensure you get a discount on your monthly fee, your friend must inform the BRASAS secretariat of the code you shared with them when registering.",
+          "textInPortuguese": "Para você garantir o desconto na mensalidade, seu amigo precisa informar no ato da matrícula, para a secretaria do BRASAS, o código compartilhado com ele."
+        }
+      ]
+    },
+    {
+      "__resolveType": "site/sections/RegulationText.tsx",
+      "textInEnglish": "<p>*Students receive a R$100.00 credit for each friend they refer who enrolls. Credits can be used to pay tuition fees until the last day of school in 2022, with only one credit being discounted per month. Does not include teaching materials and fees. In order for a BRASAS student to receive the credit, their friend must provide the discount code or full name + the unit where the BRASAS student who referred them studies at the time of enrollment. Valid for enrollments at the Rio, Niterói, Duque de Caxias and Nova Iguaçu units, and for BRASAS Online.</p>",
+      "textInPortuguese": "<p>*O aluno ganha um crédito de R$100,00 a cada amigo indicado que se matricular. Os créditos podem ser utilizados no pagamento de mensalidades até o último dia letivo de 2022, sendo descontado apenas um crédito por mês. Não inclui material didático e taxas. Para que o aluno BRASAS obtenha o crédito, seu amigo deve informar, no ato da matrícula, o código de desconto ou nome completo + a unidade em que estuda o aluno BRASAS que o indicou. Válido para matrículas nas unidades Rio, Niterói, Duque de Caxias e Nova Iguaçu, e para o BRASAS Online.</p>"
     }
   ],
   "__resolveType": "website/pages/Page.tsx"
