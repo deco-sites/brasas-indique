@@ -3,6 +3,19 @@ import IconMailFilled from "https://deno.land/x/tabler_icons_tsx@0.0.7/tsx/mail-
 import IconBrandFacebookFilled from "https://deno.land/x/tabler_icons_tsx@0.0.7/tsx/brand-facebook-filled.tsx";
 import { useSelectLanguage } from "site/sdk/language.ts";
 import Image from "apps/website/components/Image.tsx";
+import { useEffect } from "preact/hooks";
+import { getExternalId, getUserEmail, makeLogin } from "site/services/users.ts";
+
+declare global {
+  interface Window {
+    LayersPortalOptions?: {
+      appId: string;
+      insidePortalOnly?: boolean;
+      manualLoadingControl?: boolean;
+    };
+    LayersPortal?: any;
+  }
+}
 
 export default function WhoIndicatesIsland(props) {
   const { selectedLanguage } = useSelectLanguage();
@@ -12,6 +25,56 @@ export default function WhoIndicatesIsland(props) {
     "email": IconMailFilled,
     "facebook": IconBrandFacebookFilled,
   };
+
+  useEffect(() => {
+    // Define as opções no window
+    window.LayersPortalOptions = {
+      appId: "deep-link-brasas",
+      insidePortalOnly: false,
+      manualLoadingControl: false,
+    };
+
+    // Cria o script de carregamento
+    const script = document.createElement("script");
+    script.src = "https://js.layers.digital/v1/LayersPortal.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.onload = () => {
+      const init = async () => {
+        try {
+          const data = await window.LayersPortal?.readyPromise;
+          console.log("Usuário conectado:", data);
+          console.log("userId:", data.userId);
+
+          const community_id = "sophia-4375-44";
+          const userId = data.userId;
+
+          // 1. Login na API
+          const access_token = await makeLogin(userId, community_id);
+
+          // 2. Obter e-mail do usuário
+          const userEmail = await getUserEmail(userId, access_token);
+
+          // 3. Obter externalId
+          const externalId = await getExternalId(userEmail, access_token);
+
+          console.log("1.", { access_token, userEmail, externalId });
+        } catch (error) {
+          console.error("Erro ao obter dados do usuário:", error);
+        }
+      };
+
+      init();
+    };
+    document.body.appendChild(script);
+
+    {
+      /* Limpeza
+    return () => {
+      document.body.removeChild(script);
+    };*/
+    }
+  }, []);
 
   return (
     <section className="relative flex justify-center">
