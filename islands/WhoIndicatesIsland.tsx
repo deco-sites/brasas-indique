@@ -58,7 +58,11 @@ export default function WhoIndicatesIsland(props) {
           // 3. Obter externalId
           const externalId = await getExternalId(userEmail, access_token);
 
-          console.log("1.", { access_token, userEmail, externalId });
+          console.log("Retorno dentro do script.onload", {
+            access_token,
+            userEmail,
+            externalId,
+          });
         } catch (error) {
           console.error("Erro ao obter dados do usuário:", error);
         }
