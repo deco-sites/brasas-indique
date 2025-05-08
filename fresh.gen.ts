@@ -3,6 +3,7 @@
 // This file is automatically updated during development when running `dev.ts`.
 
 import * as $_app from "./routes/_app.tsx";
+import * as $_middleware from "./routes/_middleware.ts";
 import * as $HaveQuestionsIsland from "./islands/HaveQuestionsIsland.tsx";
 import * as $ReferAndEarnPageBannerIsland from "./islands/ReferAndEarnPageBannerIsland.tsx";
 import * as $RegulationTextIsland from "./islands/RegulationTextIsland.tsx";
@@ -12,6 +13,7 @@ import type { Manifest } from "$fresh/server.ts";
 const manifest = {
   routes: {
     "./routes/_app.tsx": $_app,
+    "./routes/_middleware.ts": $_middleware,
   },
   islands: {
     "./islands/HaveQuestionsIsland.tsx": $HaveQuestionsIsland,

@@ -1,9 +1,10 @@
 import IconBrandWhatsapp from "https://deno.land/x/tabler_icons_tsx@0.0.7/tsx/brand-whatsapp.tsx";
 import IconMailFilled from "https://deno.land/x/tabler_icons_tsx@0.0.7/tsx/mail-filled.tsx";
 import IconBrandFacebookFilled from "https://deno.land/x/tabler_icons_tsx@0.0.7/tsx/brand-facebook-filled.tsx";
+import IconCopy from "https://deno.land/x/tabler_icons_tsx@0.0.7/tsx/copy.tsx";
 import { useSelectLanguage } from "site/sdk/language.ts";
 import Image from "apps/website/components/Image.tsx";
-import { useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import { getExternalId, getUserEmail, makeLogin } from "site/services/users.ts";
 
 declare global {
@@ -19,6 +20,7 @@ declare global {
 
 export default function WhoIndicatesIsland(props) {
   const { selectedLanguage } = useSelectLanguage();
+  const [finalExternalId, setFinalExternalId] = useState(null);
 
   const ICONS = {
     "whatsapp": IconBrandWhatsapp,
@@ -61,6 +63,7 @@ export default function WhoIndicatesIsland(props) {
 
           // 3. Obter externalId
           const externalId = await getExternalId(userEmail, access_token);
+          setFinalExternalId(externalId);
 
           console.log("Retorno dentro do script.onload", {
             access_token,
@@ -83,6 +86,59 @@ export default function WhoIndicatesIsland(props) {
     };*/
     }
   }, []);
+
+  const generateCode = async (media: string) => {
+    console.log("gerar link", finalExternalId);
+
+    const whatsapp_base_url =
+      `https://api.whatsapp.com/send?text=${finalExternalId}`;
+    const facebook_base_url =
+      `https://www.facebook.com/dialog/share?href=${finalExternalId}`;
+    if (!finalExternalId) {
+      alert(
+        "O código ainda não está disponível. Tente novamente em instantes.",
+      );
+      return;
+    }
+
+    const message =
+      `Olá, esse é meu código Brasas. Para usar acesse https://novosite.brasas.com/indique_e_ganhe e siga as instruções.\n\nCódigo: ${finalExternalId}`;
+    const encodedMessage = encodeURIComponent(message);
+
+    switch (media) {
+      case "copy":
+        try {
+          await navigator.clipboard.writeText(finalExternalId);
+          alert("O código foi enviado para a área de transferência.");
+        } catch (err) {
+          console.error("Erro ao copiar para área de transferência:", err);
+          alert("Não foi possível copiar o código.");
+        }
+        break;
+
+      case "whatsapp":
+        window.open(
+          `https://api.whatsapp.com/send?text=${encodedMessage}`,
+          "_blank",
+        );
+        break;
+
+      case "facebook":
+        window.open(
+          `https://www.facebook.com/dialog/send?link=https://novosite.brasas.com/indique_e_ganhe&app_id=YOUR_APP_ID&redirect_uri=https://novosite.brasas.com&display=popup&message=${encodedMessage}`,
+          "_blank",
+        );
+        break;
+
+      case "email":
+        window.location.href =
+          `mailto:?subject=Indicação Brasas&body=${encodedMessage}`;
+        break;
+
+      default:
+        console.warn("Mídia não reconhecida:", media);
+    }
+  };
 
   return (
     <section className="relative flex justify-center">
@@ -113,21 +169,25 @@ export default function WhoIndicatesIsland(props) {
                 ? props.boxTitleInPortuguese
                 : props.boxTitleInEnglish}
             </span>
-            <div className="flex gap-4 items-center ">
-              {props.socialMediaIcons.map((socialMedia) => {
-                const IconComponent = ICONS[socialMedia.icon.toLowerCase()];
-                if (!IconComponent) return null;
-
-                return (
-                  <a
-                    key={socialMedia.icon}
-                    href={socialMedia.link}
-                    target="_blank"
-                  >
-                    <IconComponent className="w-8 h-8" />
-                  </a>
-                );
-              })}
+            <div className="flex items-center justify-between w-full">
+              <div className="flex gap-4 items-center">
+                <IconBrandWhatsapp
+                  className="w-8 h-8 cursor-pointer"
+                  onClick={() => generateCode("whatsapp")}
+                />
+                <IconMailFilled
+                  className="w-8 h-8 cursor-pointer"
+                  onClick={() => generateCode("email")}
+                />
+                <IconBrandFacebookFilled
+                  className="w-8 h-8 cursor-pointer"
+                  onClick={() => generateCode("facebook")}
+                />
+              </div>
+              <IconCopy
+                className="w-8 h-8 cursor-pointer"
+                onClick={() => generateCode("copy")}
+              />
             </div>
           </div>
         </div>

@@ -20,7 +20,7 @@ export const makeLogin = async (user_id, community_id) => {
     localStorage.setItem("@brasas-refer-and-win:user-access-token", token);
   }
 
-  console.log("Retorno da makeLogin", data);
+  //console.log("Retorno da makeLogin", data);
   return token;
 };
 
@@ -37,7 +37,7 @@ export const getUserEmail = async (user_id, token) => {
   }
 
   const data = await response.json();
-  console.log("Retorno da getUserEmail", data);
+  //console.log("Retorno da getUserEmail", data);
   return data.email;
 };
 
@@ -59,6 +59,6 @@ export const getExternalId = async (user_email, token) => {
   }
 
   const data = await response.json();
-  console.log("Retorno da getExternalId", data);
+  //console.log("Retorno da getExternalId", data);
   return data[0].external_id;
 };
