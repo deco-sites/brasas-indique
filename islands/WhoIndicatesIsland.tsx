@@ -124,15 +124,22 @@ export default function WhoIndicatesIsland(props) {
         break;
 
       case "facebook":
-        window.open(
-          `https://www.facebook.com/dialog/send?link=https://novosite.brasas.com/indique_e_ganhe&app_id=YOUR_APP_ID&redirect_uri=https://novosite.brasas.com&display=popup&message=${encodedMessage}`,
-          "_blank",
-        );
+        {
+          const linkToShare =
+            `https://novosite.brasas.com/indique_e_ganhe?codigo=${finalExternalId}`;
+          window.open(
+            `https://www.facebook.com/sharer/sharer.php?u=${
+              encodeURIComponent(linkToShare)
+            }&quote=${encodedMessage}`,
+            "_blank",
+          );
+        }
         break;
 
       case "email":
-        window.location.href =
-          `mailto:?subject=Indicação Brasas&body=${encodedMessage}`;
+        window.location.href = `mailto:?subject=${
+          encodeURIComponent("Indicação Brasas")
+        }&body=${encodedMessage}`;
         break;
 
       default:
