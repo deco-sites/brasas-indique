@@ -27,6 +27,10 @@ export default function WhoIndicatesIsland(props) {
   };
 
   useEffect(() => {
+    //Define os cookies
+    document.cookie =
+      "_your_app_session=layers_cookie; SameSite=None; Secure; Path=/;";
+
     // Define as opções no window
     window.LayersPortalOptions = {
       appId: "deep-link-brasas",
