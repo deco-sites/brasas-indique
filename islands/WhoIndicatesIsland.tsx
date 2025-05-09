@@ -167,7 +167,7 @@ export default function WhoIndicatesIsland(props) {
                   onClick={() => generateCode("copy")}
                 />
                 <div
-                  className={`absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-blue-500 text-white text-sm rounded-lg shadow transition-all duration-300 ${
+                  className={`absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-blue-300 text-white text-sm rounded-lg shadow transition-all duration-300 ${
                     showTooltip
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 -translate-y-2 pointer-events-none"
