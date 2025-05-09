@@ -49,8 +49,6 @@ export default function WhoIndicatesIsland(props) {
       const init = async () => {
         try {
           const data = await window.LayersPortal?.readyPromise;
-          console.log("Usuário conectado:", data);
-          console.log("userId:", data.userId);
 
           const community_id = "sophia-4375-44";
           const userId = data.userId;
@@ -64,12 +62,6 @@ export default function WhoIndicatesIsland(props) {
           // 3. Obter externalId
           const externalId = await getExternalId(userEmail, access_token);
           setFinalExternalId(externalId);
-
-          console.log("Retorno dentro do script.onload", {
-            access_token,
-            userEmail,
-            externalId,
-          });
         } catch (error) {
           console.error("Erro ao obter dados do usuário:", error);
         }
@@ -78,24 +70,9 @@ export default function WhoIndicatesIsland(props) {
       init();
     };
     document.body.appendChild(script);
-
-    {
-      /* Limpeza
-    return () => {
-      document.body.removeChild(script);
-    };*/
-    }
   }, []);
 
   const generateCode = async (media: string) => {
-    console.log("gerar link", finalExternalId);
-
-    const whatsapp_base_url =
-      `https://api.whatsapp.com/send?text=${finalExternalId}`;
-    const facebook_base_url =
-      `https://www.facebook.com/dialog/send?href=${finalExternalId}`;
-
-    const app_id = 1217981644879628;
     if (!finalExternalId) {
       alert(
         "O código ainda não está disponível. Tente novamente em instantes.",
@@ -104,7 +81,7 @@ export default function WhoIndicatesIsland(props) {
     }
 
     const message =
-      `Olá, esse é meu código Brasas. Para usar acesse https://novosite.brasas.com/indique_e_ganhe e siga as instruções.\n\nCódigo: ${finalExternalId}`;
+      `Hey, tenho uma dica imperdível pra você! Se você se matricular no BRASAS usando meu código, nós dois ganhamos R$100 de desconto! Vamos aprender inglês juntos e ainda economizar? Meu código é ${finalExternalId} – é só informar na secretaria na hora da matrícula ou acessar https://novosite.brasas.com/indique_e_ganhe?code=${finalExternalId} e seguir as instruções!`;
     const encodedMessage = encodeURIComponent(message);
 
     switch (media) {
@@ -127,7 +104,7 @@ export default function WhoIndicatesIsland(props) {
 
       case "facebook":
         window.open(
-          `https://www.facebook.com/dialog/send?link=https://novosite.brasas.com/indique_e_ganhe&app_id=${app_id}&redirect_uri=https://novosite.brasas.com&display=popup&message=${encodedMessage}`,
+          `https://www.facebook.com/sharer/sharer.php?u=https://novosite.brasas.com/indique_e_ganhe?code=${finalExternalId}`,
           "_blank",
         );
         break;
