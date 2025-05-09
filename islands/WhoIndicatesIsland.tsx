@@ -93,7 +93,9 @@ export default function WhoIndicatesIsland(props) {
     const whatsapp_base_url =
       `https://api.whatsapp.com/send?text=${finalExternalId}`;
     const facebook_base_url =
-      `https://www.facebook.com/dialog/share?href=${finalExternalId}`;
+      `https://www.facebook.com/dialog/send?href=${finalExternalId}`;
+
+    const app_id = 1217981644879628;
     if (!finalExternalId) {
       alert(
         "O código ainda não está disponível. Tente novamente em instantes.",
@@ -124,22 +126,19 @@ export default function WhoIndicatesIsland(props) {
         break;
 
       case "facebook":
-        {
-          const linkToShare =
-            `https://novosite.brasas.com/indique_e_ganhe?codigo=${finalExternalId}`;
-          window.open(
-            `https://www.facebook.com/sharer/sharer.php?u=${
-              encodeURIComponent(linkToShare)
-            }&quote=${encodedMessage}`,
-            "_blank",
-          );
-        }
+        window.open(
+          `https://www.facebook.com/dialog/send?link=https://novosite.brasas.com/indique_e_ganhe&app_id=${app_id}&redirect_uri=https://novosite.brasas.com&display=popup&message=${encodedMessage}`,
+          "_blank",
+        );
         break;
 
       case "email":
-        window.location.href = `mailto:?subject=${
-          encodeURIComponent("Indicação Brasas")
-        }&body=${encodedMessage}`;
+        window.open(
+          `mailto:?subject=${
+            encodeURIComponent("Indicação Brasas")
+          }&body=${encodedMessage}`,
+          "_blank",
+        );
         break;
 
       default:

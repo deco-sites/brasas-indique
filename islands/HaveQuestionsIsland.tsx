@@ -43,7 +43,7 @@ export default function HaveQuestionsIsland(props) {
                 </div>
                 <div className="h-full flex flex-col gap-4 items-center justify-center pt-8 px-8 pb-9 rounded-3xl bg-green-100 text-black-500 max-w-[33rem]">
                   <IconComponent className="w-10 h-10 text-purple-500" />
-                  <span className="font-bold text-2xl">
+                  <span className="font-bold text-2xl text-center">
                     {selectedLanguage.value === "ptBr"
                       ? card.titleInPortuguese
                       : card.titleInEnglish}
