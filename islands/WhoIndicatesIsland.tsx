@@ -20,13 +20,8 @@ declare global {
 
 export default function WhoIndicatesIsland(props) {
   const { selectedLanguage } = useSelectLanguage();
-  const [finalExternalId, setFinalExternalId] = useState(null);
-
-  const ICONS = {
-    "whatsapp": IconBrandWhatsapp,
-    "email": IconMailFilled,
-    "facebook": IconBrandFacebookFilled,
-  };
+  const [finalExternalId, setFinalExternalId] = useState<string | null>(null);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     //Define os cookies
@@ -53,13 +48,8 @@ export default function WhoIndicatesIsland(props) {
           const community_id = "sophia-4375-44";
           const userId = data.userId;
 
-          // 1. Login na API
           const access_token = await makeLogin(userId, community_id);
-
-          // 2. Obter e-mail do usuário
           const userEmail = await getUserEmail(userId, access_token);
-
-          // 3. Obter externalId
           const externalId = await getExternalId(userEmail, access_token);
           setFinalExternalId(externalId);
         } catch (error) {
@@ -73,12 +63,7 @@ export default function WhoIndicatesIsland(props) {
   }, []);
 
   const generateCode = async (media: string) => {
-    if (!finalExternalId) {
-      alert(
-        "O código ainda não está disponível. Tente novamente em instantes.",
-      );
-      return;
-    }
+    if (!finalExternalId) return;
 
     const message =
       `Hey, tenho uma dica imperdível pra você! Se você se matricular no BRASAS usando meu código, nós dois ganhamos R$100 de desconto! Vamos aprender inglês juntos e ainda economizar? Meu código é ${finalExternalId} – é só informar na secretaria na hora da matrícula ou acessar https://novosite.brasas.com/indique_e_ganhe?code=${finalExternalId} e seguir as instruções!`;
@@ -88,10 +73,10 @@ export default function WhoIndicatesIsland(props) {
       case "copy":
         try {
           await navigator.clipboard.writeText(finalExternalId);
-          alert("O código foi enviado para a área de transferência.");
+          setShowTooltip(true);
+          setTimeout(() => setShowTooltip(false), 2000);
         } catch (err) {
           console.error("Erro ao copiar para área de transferência:", err);
-          alert("Não foi possível copiar o código.");
         }
         break;
 
@@ -123,6 +108,15 @@ export default function WhoIndicatesIsland(props) {
     }
   };
 
+  if (!finalExternalId) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent">
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="relative flex justify-center">
       <Image
@@ -146,7 +140,7 @@ export default function WhoIndicatesIsland(props) {
             }}
           >
           </span>
-          <div className="flex flex-col items-center xl:items-start gap-8 border border-blue-300 text-blue-300 p-10 rounded-[30px]">
+          <div className="flex flex-col items-center xl:items-start gap-8 border border-blue-300 text-blue-300 p-10 rounded-[30px] relative">
             <span className="text-center xl:text-left font-black text-2xl">
               {selectedLanguage.value === "ptBr"
                 ? props.boxTitleInPortuguese
@@ -167,10 +161,21 @@ export default function WhoIndicatesIsland(props) {
                   onClick={() => generateCode("facebook")}
                 />
               </div>
-              <IconCopy
-                className="w-8 h-8 cursor-pointer"
-                onClick={() => generateCode("copy")}
-              />
+              <div className="relative">
+                <IconCopy
+                  className="w-8 h-8 cursor-pointer"
+                  onClick={() => generateCode("copy")}
+                />
+                <div
+                  className={`absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-blue-500 text-white text-sm rounded-lg shadow transition-all duration-300 ${
+                    showTooltip
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 -translate-y-2 pointer-events-none"
+                  }`}
+                >
+                  Copiado!
+                </div>
+              </div>
             </div>
           </div>
         </div>
