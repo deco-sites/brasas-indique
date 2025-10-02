@@ -49,6 +49,7 @@ export const getExternalId = async (user_email, token) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      credentials: "include",
     },
   );
 
