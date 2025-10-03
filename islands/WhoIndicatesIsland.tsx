@@ -49,8 +49,11 @@ export default function WhoIndicatesIsland(props) {
           const userId = data.userId;
 
           const access_token = await makeLogin(userId, community_id);
+          console.log("access_token:", access_token);
           const userEmail = await getUserEmail(userId, access_token);
+          console.log("userEmail:", userEmail);
           const externalId = await getExternalId(userEmail, access_token);
+          console.log("externalId:", externalId);
           setFinalExternalId(externalId);
         } catch (error) {
           console.error("Erro ao obter dados do usuário:", error);
