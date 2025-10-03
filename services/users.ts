@@ -40,6 +40,9 @@ export const getUserEmail = async (user_id, token) => {
 };
 
 export const getExternalId = async (user_email, token) => {
+  console.log("Token usado no getExternalId:", token);
+  console.log("Email usado:", user_email);
+
   const response = await fetch(
     `${API_BASE_URL}/sophia/student/search?email=${
       encodeURIComponent(user_email)
