@@ -23,6 +23,8 @@ export default function WhoIndicatesIsland(props) {
   const [finalExternalId, setFinalExternalId] = useState<string | null>(null);
   const [showTooltip, setShowTooltip] = useState(false);
 
+  {
+    /*
   useEffect(() => {
     //Define os cookies
     document.cookie =
@@ -44,7 +46,7 @@ export default function WhoIndicatesIsland(props) {
       const init = async () => {
         try {
           const data = await window.LayersPortal?.readyPromise;
-
+          console.log("data", data);
           const community_id = "sophia-4375-44";
           const userId = data.userId;
 
@@ -63,6 +65,16 @@ export default function WhoIndicatesIsland(props) {
       init();
     };
     document.body.appendChild(script);
+  }, []);*/
+  }
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get("userId");
+    const email = params.get("email");
+    const externalId = params.get("externalId");
+
+    console.log("Recebido do pai:", { userId, email, externalId });
   }, []);
 
   const generateCode = async (media: string) => {
