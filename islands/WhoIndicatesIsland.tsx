@@ -23,8 +23,6 @@ export default function WhoIndicatesIsland(props) {
   const [finalExternalId, setFinalExternalId] = useState<string | null>(null);
   const [showTooltip, setShowTooltip] = useState(false);
 
-  {
-    /*
   useEffect(() => {
     //Define os cookies
     document.cookie =
@@ -65,20 +63,10 @@ export default function WhoIndicatesIsland(props) {
       init();
     };
     document.body.appendChild(script);
-  }, []);*/
-  }
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get("userId");
-    const email = params.get("email");
-    const externalId = params.get("externalId");
-    setFinalExternalId(externalId);
-    console.log("Recebido do pai:", { userId, email, externalId });
   }, []);
 
   const generateCode = async (media: string) => {
-    //if (!finalExternalId) return;
+    if (!finalExternalId) return;
 
     const message =
       `Hey, tenho uma dica imperdível pra você! Se você se matricular no BRASAS usando meu código, nós dois ganhamos R$100 de desconto! Vamos aprender inglês juntos e ainda economizar? Meu código é ${finalExternalId} – é só informar na secretaria na hora da matrícula ou acessar https://novosite.brasas.com/indique_e_ganhe?code=${finalExternalId} e seguir as instruções!`;
@@ -123,8 +111,6 @@ export default function WhoIndicatesIsland(props) {
     }
   };
 
-  {
-    /*
   if (!finalExternalId) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -132,7 +118,6 @@ export default function WhoIndicatesIsland(props) {
         </div>
       </div>
     );
-  }*/
   }
 
   return (
