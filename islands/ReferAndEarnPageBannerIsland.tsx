@@ -17,6 +17,15 @@ export default function ReferAndEarnPageBannerIsland(props) {
         height={props.centeredImage.height}
         className="object-contain absolute z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[25rem] sm:w-[35rem]"
       />
+
+      <a
+        href="https://paneltest.brasas.com"
+        target="_self"
+        className="absolute top-4 right-4 bg-purple-500 rounded-md px-4 py-2 flex gap-4 items-center justify-center text-white hover:scale-105 transition-all transform duration-300"
+      >
+        <img src="/hub-icon.svg" alt="Hub Icon" className="" />
+        Back to hub
+      </a>
     </section>
   );
 }
