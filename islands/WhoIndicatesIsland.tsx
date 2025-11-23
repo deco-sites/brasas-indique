@@ -62,6 +62,21 @@ export default function WhoIndicatesIsland(props) {
     document.body.appendChild(script);
   }, []);
 
+  const fallbackCopy = (text) => {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed"; // evita scroll
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand("copy");
+    } catch (err) {
+      console.error("Fallback falhou", err);
+    }
+    document.body.removeChild(textarea);
+  };
+
   const generateCode = async (media: string) => {
     if (!finalExternalId) return;
 
@@ -77,6 +92,9 @@ export default function WhoIndicatesIsland(props) {
           setTimeout(() => setShowTooltip(false), 2000);
         } catch (err) {
           console.error("Erro ao copiar para área de transferência:", err);
+          fallbackCopy(finalExternalId);
+          setShowTooltip(true);
+          setTimeout(() => setShowTooltip(false), 2000);
         }
         break;
 
