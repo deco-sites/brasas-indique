@@ -115,7 +115,7 @@ export default function WhoIndicatesIsland(props) {
       case "email":
         window.open(
           `mailto:?subject=${
-            encodeURIComponent("Indicação Brasas")
+            encodeURIComponent("Indicação BRASAS")
           }&body=${encodedMessage}`,
           "_blank",
         );
