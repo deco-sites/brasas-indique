@@ -19,7 +19,7 @@ export default function ReferAndEarnPageBannerIsland(props) {
       />
 
       <a
-        href="https://paneltest.brasas.com"
+        href="https://hub.brasas.com"
         target="_self"
         className="absolute top-4 right-4 bg-purple-500 rounded-md px-4 py-2 flex gap-4 items-center justify-center text-white hover:scale-105 transition-all transform duration-300"
       >

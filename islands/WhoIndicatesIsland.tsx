@@ -45,7 +45,7 @@ export default function WhoIndicatesIsland(props) {
         try {
           const data = await window.LayersPortal?.readyPromise;
 
-          const community_id = "sophia-4375-44";
+          const community_id = data.communityId;
           const userId = data.userId;
 
           const access_token = await makeLogin(userId, community_id);
