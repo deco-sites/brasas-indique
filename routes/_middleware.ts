@@ -5,7 +5,7 @@ export async function handler(req: Request, ctx: FreshContext) {
 
   resp.headers.set(
     "Content-Security-Policy",
-    "frame-ancestors 'self' *.layers.education paneltest.brasas.com",
+    "frame-ancestors 'self' *.layers.education paneltest.brasas.com hub.brasas.com",
   );
 
   return resp;
